@@ -14,6 +14,8 @@ from rest_framework.pagination import LimitOffsetPagination
 
 class HomeView(generics.ListAPIView):
     permission_classes = (AllowAny,)
+    serializer_class = ProductSerializer
+
     def list(self, request):
         new = Product.objects.all().order_by('-created_at')[:10]
         popular = Product.objects.annotate(total_order = Sum('variant__orderitem__quantity')).filter().order_by('-total_order')[:10]
@@ -32,7 +34,7 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     queryset = Product.objects.filter()
 
-class PriceListCreateAPIView(generics.ListCreateAPIView):
+class ProductVariantListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = ProductVariantSerializer
     queryset = ProductVariant.objects.filter()

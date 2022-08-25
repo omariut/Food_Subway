@@ -30,4 +30,4 @@ class ProductVariantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductVariant
-        fields = ['unit','amount','price']
+        fields = '__all__'

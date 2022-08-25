@@ -4,7 +4,7 @@ from order.models import Order,OrderItem
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
-        fields = '__all__'
+        exclude = ['created_at','updated_at']
 
 class OrderSerializer(serializers.ModelSerializer):
     items = serializers.SerializerMethodField(read_only=True)
