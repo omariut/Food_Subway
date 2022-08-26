@@ -8,4 +8,3 @@ REST API development for ecommerce website.
 - Cart (OrderItem)
 - Order
 - Checkout
-
