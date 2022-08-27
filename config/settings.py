@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'user',
     'product',
     'order',
+    'payment',
 
     #third party
     'rest_framework',
@@ -160,3 +161,7 @@ REST_FRAMEWORK = {
 }
 MEDIA_ROOT =  os.path.join(settings.BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+SSL_STORE_ID = 'test63081f406a626'
+SSL_STORE_PASSWORD = 'test63081f406a626@ssl'
+SSL_BASE_URL="https://bc81-103-108-146-98.ngrok.io"
