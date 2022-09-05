@@ -1,6 +1,6 @@
 from django.db import models
 from base.models import BaseModel
-
+from field_permissions.models import FieldPermissionModelMixin
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -13,6 +13,12 @@ class Product(BaseModel):
     category = models.ForeignKey('product.Category',  on_delete=models.PROTECT, related_name='products',)
     name = models.CharField(max_length=100,unique=True)
     image = models.ImageField(upload_to='images', null=True, blank=True,)
+
+    class Meta:
+        permissions = (
+            ('can_change_product_name', "Can change product name"),
+            ('can_change_product_category', "Can change product category"),
+        )
 
     def __str__(self):
         return self.name

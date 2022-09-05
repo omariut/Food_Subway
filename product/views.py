@@ -34,6 +34,12 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     queryset = Product.objects.filter()
 
+class ProductUpdateAPIView(generics.UpdateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ProductSerializer
+    queryset = Product.objects.filter()
+
+
 class ProductVariantListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = ProductVariantSerializer

@@ -1,9 +1,10 @@
 from product.models import Product,Category,ProductVariant
 from rest_framework import serializers
+from rest_framework import serializers
+from base.mixins import FieldPermissionSerializerMixin
 
 
-
-class ProductSerializer(serializers.ModelSerializer):
+class ProductSerializer(FieldPermissionSerializerMixin,serializers.ModelSerializer):
     product_variants = serializers.SerializerMethodField(read_only=True)
 
     def get_product_variants(self,obj):
