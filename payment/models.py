@@ -6,6 +6,7 @@ class OnlinePayment(BaseModel):
 
     STATUS_CHOICES = (
     ("success", "success"),
+    ("processing","processing"),
     ("cancelled","cancelled"),
     ("failed","failed"),
     )

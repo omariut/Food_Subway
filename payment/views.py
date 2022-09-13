@@ -32,7 +32,7 @@ class CustomerSSLCommerzOrderPaymentView(CreateAPIView):
         transaction_number = identifier_builder(table_name='online_payments', prefix='OSL')
         request.data['transaction_number'] = transaction_number
         request.data['created_by'] = request.user.id
-        # request.data['status'] = OnlinePaymentStatusOptions.INITIATED
+        #request.data['status'] = OnlinePaymentStatusOptions.INITIATED
 
         # set sslcommerz data
         sslcommerz_data = {
@@ -60,7 +60,7 @@ class CustomerSSLCommerzOrderPaymentView(CreateAPIView):
             'logo': response['storeLogo'],
             'store_name': response['store_name'],
         }
-
+        request.data["status"]="processing"
         return super().create(request, *args, **kwargs)
             #return Response(res_data, status=status.HTTP_201_CREATED)
         # except IntegrityError as err:
@@ -77,7 +77,7 @@ class CustomerSSLCommerzIPNView(APIView):
         try:
             if not request.data.get('tran_id') or not request.data.get('value_a') or not request.data.get('value_b'):
                 return Response({'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
-            online_payment = OnlinePayment.objects.get(transaction_number=request.data['tran_id'],created_by__username=request.data['value_b'],status=OnlinePaymentStatusOptions.INITIATED)
+            online_payment = OnlinePayment.objects.get(transaction_number=request.data['tran_id'],created_by__username=request.data['value_b'],status="processing")
             online_payment.has_hit_ipn = True
             if not request.data.get('status') == 'VALID':
                 online_payment.status = OnlinePaymentStatusOptions.CANCELLED

@@ -25,30 +25,31 @@ def sslcommerz_payment_create(data: Dict, customer: User) -> Dict:
             'store_passwd': settings.SSL_STORE_PASSWORD,
             'currency': 'BDT',
             'cus_name': customer_name,
-            # 'cus_add1': customer.address if customer.address else 'Dhaka',
+            'cus_add1': 'Dhaka',#customer.address if customer.address else 'Dhaka',
             'cus_city': 'Dhaka',
             'cus_country': 'Bangladesh',
             'cus_phone': customer.username,
             'cus_email': customer.email if customer.email else 'no-email@evaly.com.bd',
             'shipping_method': 'YES',
-            # 'ship_name': customer.address if customer.address else 'Dhaka',
+            'ship_name': 'Dhaka',#customer.address if customer.address else 'Dhaka',
             'ship_city': 'Dhaka',
             'ship_country': 'Bangladesh',
             'ship_postcode': 1000,
-            # 'ship_add1': customer.address if customer.address else 'Dhaka',
+            'ship_add1': 'Dhaka'#customer.address if customer.address else 'Dhaka',
         }
         body.update(data)
         response = requests.post(
             url=f'https://sandbox.sslcommerz.com/gwprocess/v4/api.php',
             data=body,
             headers={'Content-Type': 'application/x-www-form-urlencoded'},
-            # timeout=5,
+            timeout=5,
         )
         resp: Dict = response.json()
-        print(resp)
-        if resp.get('status') == 'SUCCESS':
+        status=resp.get('status')
+        
+        if  status == 'SUCCESS':
             return resp
-        # logger.error('SSL_COMMERZ_PAYMENT_ERROR_RESPONSE: ', str(data['failedreason']))
+        logger.error('SSL_COMMERZ_PAYMENT_ERROR_RESPONSE: ', str(data['failedreason']))
         return {}
     except requests.exceptions.Timeout as e:
         logger.error('SSL_COMMERZ_PAYMENT_TIMEOUT_ERROR: ', str(e))

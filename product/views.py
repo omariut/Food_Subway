@@ -32,7 +32,7 @@ class CategoryListCreateAPIView(generics.ListCreateAPIView):
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = ProductSerializer
-    queryset = Product.objects.filter()
+    queryset = Product.objects.prefetch_related('variant').filter()
 
 class ProductUpdateAPIView(generics.UpdateAPIView):
     permission_classes = (IsAuthenticated,)

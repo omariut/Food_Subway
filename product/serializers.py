@@ -5,11 +5,17 @@ from base.mixins import FieldPermissionSerializerMixin
 
 
 class ProductSerializer(FieldPermissionSerializerMixin,serializers.ModelSerializer):
-    product_variants = serializers.SerializerMethodField(read_only=True)
+ 
 
-    def get_product_variants(self,obj):
-        product_variants = ProductVariant.objects.filter(product=obj)
-        return ProductVariantSerializer(product_variants,many=True).data
+
+
+    def to_representation(self, obj):
+        product_variants = obj.variant
+        return {"product_variants" : ProductVariantSerializer(product_variants,many=True).data}
+
+    # def get_product_variants(self,obj):
+    #     product_variants = ProductVariant.objects.filter(product=obj)
+    #     return ProductVariantSerializer(product_variants,many=True).data
 
 
     class Meta:

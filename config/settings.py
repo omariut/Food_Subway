@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     #third party
     'rest_framework',
     'rest_framework.authtoken',
-    'field_permissions'
 
 ]
 if DEBUG:
