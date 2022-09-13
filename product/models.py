@@ -1,6 +1,5 @@
 from django.db import models
 from base.models import BaseModel
-from field_permissions.models import FieldPermissionModelMixin
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
